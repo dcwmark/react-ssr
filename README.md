@@ -1,5 +1,4 @@
 # react-ssr
----
 
 ```
 > npm i webpack webpack-cli -D
