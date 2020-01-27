@@ -1,9 +1,12 @@
+// shared/App.hs
+
 import React from 'react';
+import Grid from './Grid';
 
 const App = (props) => {
     return (
         <div>
-            App.js from {props.data}
+            <Grid data={ props.data } />
         </div>
     );
 }

@@ -4,13 +4,14 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "start": "webpack -w & nodemon server",
+        "dev": "webpack --mode development -w & nodemon server",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "",
     "license": "ISC",
     "devDependencies": {
         "@babel/core": "^7.8.3",
+        "@babel/plugin-proposal-object-rest-spread": "^7.8.3",
         "@babel/preset-env": "^7.8.3",
         "@babel/preset-react": "^7.8.3",
         "babel-loader": "^8.0.6",
@@ -25,7 +26,9 @@
     "dependencies": {
         "cors": "^2.8.5",
         "express": "^4.17.1",
+        "isomorphic-fetch": "^2.2.1",
         "react": "^16.12.0",
-        "react-dom": "^16.12.0"
+        "react-dom": "^16.12.0",
+        "serialize-javascript": "^2.1.2"
     }
 }
