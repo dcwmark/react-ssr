@@ -1,4 +1,4 @@
-// shared/App.hs
+// shared/App.js
 
 import React from 'react';
 import Grid from './Grid';

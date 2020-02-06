@@ -43,8 +43,8 @@ app.get('*', (req, res, next) => {
                         to figure out how to get the same data that originated
                         on the server, down to the client.
                         
-                        There’s a pretty “old school” solution that works perfectly --
-                        window global namespace.
+                        There’s a pretty “old school” solution that works
+                        perfectly -- window global namespace.
                     -->
                     <script>window.__INITIAL_DATA__ = ${serialize(data)}</script>
                 </head>

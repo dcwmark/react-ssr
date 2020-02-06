@@ -12,7 +12,7 @@ const Grid = (props) => {
                     <ul>
                         <li><a href={ html_url }>{ name }</a></li>
                         <li>@{ owner.login }</li>
-                        <li>{ stargazers_count }</li>
+                        <li>{ stargazers_count } stars</li>
                     </ul>    
                 </li>    
             )) }
