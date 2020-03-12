@@ -60,7 +60,6 @@ class Grid extends PureComponent {
             <ui style={{ display: 'flex', flexWrap: 'wrap' }}>
                 { repos.map(({ name, owner, stargazers_count, html_url }) => (
                     <li key={ name } style={{ margin: 30 }}>
-                        { name }
                         <ul>
                             <li><a href={ html_url }>{ name }</a></li>
                             <li>@{ owner.login }</li>
