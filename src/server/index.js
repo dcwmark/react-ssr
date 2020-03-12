@@ -6,9 +6,11 @@ import serialize from 'serialize-javascript';
 
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
+import { StaticRouter, matchPath } from 'react-router-dom';
 
 import { fetchPopularRepos } from '../shared/api';
 import App from '../shared/App';
+import routes from '../shared/routes';
 
 const PORT = process.env.PORT || 5000;
 
@@ -17,9 +19,31 @@ app.use(cors());
 app.use(express.static('public'));
 
 app.get('*', (req, res, next) => {
-    fetchPopularRepos()
-    .then( data => {
-        const markup = ReactDOMServer.renderToString(<App data={ data } />);
+    // activeRoute will be the route of whatever page the user was requesting
+    // (req.url).
+    const activeRoute = routes.find(
+        (route) => matchPath(req.url, route)
+    ) || {};
+
+    // Check to see if that route requires any data.
+    // If the activeRoute has a fetchInitialData property. 
+    //   (see shared/routes.js)
+    // If it does, invokes it passing it the current path,
+    // if it doesn’t, just continue on.
+    const promise = activeRoute.fetchInitialData
+                  ? activeRoute.fetchInitialData(req.path)
+                  : Promise.resolve();
+    
+    promise.then( data => {
+        const context = { data };
+
+        const markup = ReactDOMServer.renderToString(
+            // Anything that is passed onto the `context`, can be accessed
+            // by any component as `props.staticContext`.
+            <StaticRouter location={ req.url } context={ context }>
+                <App />
+            </StaticRouter>
+        );
 
         res.send(`
             <!DOCTYPE html>
@@ -53,10 +77,9 @@ app.get('*', (req, res, next) => {
                 </body>
             </html>
         `);
-    });
+    }).catch( next );
 });
 
 app.listen(PORT, () => {
     console.log(`Server listening on port: ${PORT}`);
 });
-
